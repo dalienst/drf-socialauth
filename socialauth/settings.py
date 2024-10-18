@@ -237,3 +237,7 @@ GOOGLE_REDIRECT_URI = config(
 GOOGLE_ID_TOKEN_INFO_URL = config(
     "GOOGLE_ID_TOKEN_INFO_URL", default="https://oauth2.googleapis.com/token"
 )
+
+# Force HTTPS in production
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")  # If using reverse proxy
