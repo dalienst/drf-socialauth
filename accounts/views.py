@@ -89,7 +89,16 @@ class GoogleCallbackView(APIView):
         user, token = create_or_get_user_from_google(user_info)
 
         return Response(
-            {"token": token.key, "user": user.email, "id": user.id},
+            {
+                "token": token.key,
+                "user": user.email,
+                "id": user.id,
+                "first_name": user.first_name,
+                "last_name": user.last_name,
+                "is_active": user.is_active,
+                "is_verified": user.is_verified,
+                "is_staff": user.is_staff,
+            },
             status=status.HTTP_200_OK,
         )
 
