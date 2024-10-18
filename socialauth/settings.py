@@ -228,10 +228,11 @@ SIMPLE_JWT = {
 }
 
 # Google OAuth2 Settings
+AUTH_URL = config("AUTH_URL")
 GOOGLE_CLIENT_ID = config("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = config("GOOGLE_CLIENT_SECRET")
 GOOGLE_REDIRECT_URI = config(
-    "GOOGLE_REDIRECT_URI", default=f"{BASE_URL}/api/auth/google/callback/"
+    "GOOGLE_REDIRECT_URI", default=f"{AUTH_URL}/api/auth/google/callback/"
 )
 GOOGLE_ID_TOKEN_INFO_URL = config(
     "GOOGLE_ID_TOKEN_INFO_URL", default="https://oauth2.googleapis.com/token"
