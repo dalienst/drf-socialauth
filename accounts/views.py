@@ -72,6 +72,9 @@ class GoogleLoginView(APIView):
 
         if serializer.is_valid():
             email = serializer.validated_data["email"]
+            first_name = serializer.validated_data.get("first_name")
+            last_name = serializer.validated_data.get("last_name")
+            avatar = serializer.validated_data.get("avatar")
 
             user = User.objects.filter(email=email).first()
 
@@ -98,6 +101,38 @@ class GoogleLoginView(APIView):
                         {"detail": ("User account is disabled.")},
                         status=status.HTTP_400_BAD_REQUEST,
                     )
+
+            else:
+                user = User.objects.create(
+                    email=email,
+                    first_name=first_name,
+                    last_name=last_name,
+                    avatar=avatar,
+                    is_active=True,
+                    is_verified=True,  # Google OAuth ensures the user is verified
+                    is_social=True,
+                )
+                token, created = Token.objects.get_or_create(user=user)
+
+                return Response(
+                    {
+                        "id": user.id,
+                        "email": user.email,
+                        "first_name": user.first_name,
+                        "last_name": user.last_name,
+                        "is_superuser": user.is_superuser,
+                        "is_active": user.is_active,
+                        "is_staff": user.is_staff,
+                        "is_verified": user.is_verified,
+                        "reference": user.reference,
+                        "slug": user.slug,
+                        "last_login": user.last_login,
+                        "token": token.key,
+                    },
+                    status=status.HTTP_201_CREATED,
+                )
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserRegisterView(generics.CreateAPIView):

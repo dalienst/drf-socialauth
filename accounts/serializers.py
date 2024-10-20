@@ -142,3 +142,6 @@ class UserLoginSerializer(serializers.Serializer):
 
 class GoogleLoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
+    first_name = serializers.CharField(required=False)
+    last_name = serializers.CharField(required=False)
+    avatar = serializers.ImageField(use_url=True, required=False)
