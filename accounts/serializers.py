@@ -122,3 +122,23 @@ class VerifyAccountSerializer(serializers.Serializer):
         user.is_verified = True
         user.save()
         return user
+
+
+class GoogleLoginSerializer(serializers.Serializer):
+    token = serializers.CharField()
+
+    class Meta:
+        fields = ("token",)
+
+    def save(self, **kwargs):
+        token = self.validated_data.get("token")
+        return token
+
+
+class UserLoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(required=True, write_only=True)
+
+
+class GoogleLoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()

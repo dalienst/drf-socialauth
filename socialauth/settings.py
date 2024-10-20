@@ -232,12 +232,13 @@ AUTH_URL = config("AUTH_URL")
 GOOGLE_CLIENT_ID = config("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = config("GOOGLE_CLIENT_SECRET")
 GOOGLE_REDIRECT_URI = config(
-    "GOOGLE_REDIRECT_URI", default=f"{AUTH_URL}/api/auth/google/callback/"
+    "GOOGLE_REDIRECT_URI", default="http://localhost:3000/api/auth/callback/google"
 )
 GOOGLE_ID_TOKEN_INFO_URL = config(
     "GOOGLE_ID_TOKEN_INFO_URL", default="https://oauth2.googleapis.com/token"
 )
 
-# Force HTTPS in production
-SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")  # If using reverse proxy
+# # Force HTTPS in production
+# SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")  # If using reverse proxy
+# SECURE_SSL_REDIRECT = not DEBUG
