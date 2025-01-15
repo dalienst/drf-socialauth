@@ -42,8 +42,8 @@ class UserManager(BaseUserManager):
             raise ValueError("Superuser must have is_superuser=True.")
         if extra_fields.get("is_active") is not True:
             raise ValueError("Superuser must have is_active=True.")
-        if extra_fields.get("is_active") is not True:
-            raise ValueError("Superuser must have is_active=True.")
+        if extra_fields.get("is_verified") is not True:
+            raise ValueError("Superuser must have is_verified=True.")
 
         return self._create_user(email, password, **extra_fields)
 
