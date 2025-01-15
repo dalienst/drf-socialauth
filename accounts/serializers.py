@@ -62,7 +62,7 @@ class UserSerializer(serializers.ModelSerializer):
         else:
             return self.create_normal_user(validated_data)
 
-    def create_user(self, validated_data):
+    def create_normal_user(self, validated_data):
         # For regular signup
         user = User.objects.create_user(
             email=validated_data.get("email"),
